@@ -1,3 +1,3 @@
-import css from './index.css';
+import css from './css/index.css';
 
-document.getElementById('title').innerHTML = '我把文件删除了';
+// document.getElementById('title').innerHTML = '我把文件删除了';
