@@ -41,11 +41,15 @@ module.exports = {
           use: ['css-loader', 'sass-loader'],
           fallback: 'style-loader'
         })
+      }, {
+        test: /\.js$/,
+        use: ['babel-loader'],
+        exclude: /node_modules/
       }
     ],
   },
   plugins: [
-    new uglify(),
+    // new uglify(),
     new htmlPlugin({
       minify: {
         removeAttributeQuotes: true,
