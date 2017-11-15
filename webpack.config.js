@@ -30,7 +30,7 @@ module.exports = {
         use: [{
           loader: 'url-loader',
           options: {
-            limit: 500000
+            limit: 100
           }
         }]
       }, {
@@ -49,7 +49,7 @@ module.exports = {
     ],
   },
   plugins: [
-    // new uglify(),
+    new uglify(),
     new htmlPlugin({
       minify: {
         removeAttributeQuotes: true,
@@ -68,7 +68,8 @@ module.exports = {
     host: 'localhost',
     compress: true,
     port: 8080
-  }
+  },
+  // devtool: 'source-map',
 }
 
 // console.log(__dirname) => /Users/jina194/Desktop/webpack_demo
