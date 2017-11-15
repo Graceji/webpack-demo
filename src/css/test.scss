@@ -1,0 +1,12 @@
+$nav-color: black;
+
+#nav {
+  $width: 100px;
+  width: $width;
+  height: 100px;
+  background-color: $nav-color;
+}
+
+.noUse {
+  color: red;
+}

@@ -2,6 +2,8 @@ const path = require('path');
 const uglify = require('uglifyjs-webpack-plugin');
 const htmlPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const glob = require('glob');
+const PurifyCssPlugin = require('purifycss-webpack');
 
 module.exports = {
   entry: {
@@ -10,7 +12,8 @@ module.exports = {
   output: {
     // output 目录对应一个绝对路径。
     path: path.resolve(__dirname, 'dist'), // path.resolve方法会把一个路径或路径片段的序列解析为一个绝对路径
-    filename: 'js/bundle.js'
+    filename: 'js/bundle.js',
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -30,6 +33,14 @@ module.exports = {
             limit: 500000
           }
         }]
+      }, {
+        test: /\.scss$/,
+        // use: ['style-loader', 'css-loader', 'sass-loader']
+        // 分离scss
+        use: ExtractTextPlugin.extract({
+          use: ['css-loader', 'sass-loader'],
+          fallback: 'style-loader'
+        })
       }
     ],
   },
@@ -43,7 +54,10 @@ module.exports = {
       hash: true,
       template: './src/index.html'
     }),
-    new ExtractTextPlugin('/css/style.css')
+    new ExtractTextPlugin('css/style.css'),
+    new PurifyCssPlugin({
+      paths: glob.sync(path.join(__dirname, 'src/*.html'))
+    })
   ],
   devServer: {
     contentBase: path.resolve(__dirname, './dist'),
